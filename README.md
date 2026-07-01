@@ -1,75 +1,92 @@
-# React + TypeScript + Vite
+# Allan Cymk Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern personal portfolio website built with **React + TypeScript + Vite** and deployed to **GitHub Pages**.
 
-Currently, two official plugins are available:
+🔗 **Live Site:** https://abok-cymk.github.io/portfolio-allan-cymk/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Overview
 
-## React Compiler
+This project showcases Allan's work, profile, and selected frontend projects in a fast, responsive, and maintainable web app.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The codebase uses a component-driven architecture with dedicated folders for pages, reusable components, content, hooks, services, and tests.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework:** React 19
+- **Language:** TypeScript
+- **Build Tool:** Vite
+- **Routing:** React Router
+- **Styling:** CSS + Tailwind CSS tooling
+- **Animation:** Framer Motion
+- **Markdown Rendering:** react-markdown + gray-matter + rehype-highlight
+- **Testing:** Vitest + Testing Library + jsdom + vitest-axe
+- **Deployment:** GitHub Pages (via `gh-pages`)
+- **Package Manager:** pnpm
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+.
+├── public/                # Static assets and project images
+├── src/
+│   ├── assets/
+│   ├── components/        # Reusable UI components
+│   ├── content/           # Content sources (including markdown-based content)
+│   ├── data/              # Structured app data
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # Utility modules
+│   ├── pages/             # Route-level pages
+│   ├── services/          # External/service-layer logic
+│   ├── test/              # Test setup and test utilities
+│   ├── App.tsx
+│   └── main.tsx
+├── index.html
+├── vite.config.ts
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Node.js** (LTS recommended)
+- **pnpm**
 
+### Install
+
+```bash
+pnpm install
 ```
+
+### Run in development
+
+```bash
+pnpm dev
+```
+
+The app will start on the local Vite dev server.
+
+## Available Scripts
+
+- `pnpm dev` – start local development server
+- `pnpm build` – type-check and create production build
+- `pnpm preview` – preview the production build locally
+- `pnpm lint` – run ESLint
+- `pnpm test` – run tests with Vitest
+- `pnpm test:ui` – open Vitest UI
+- `pnpm deploy` – build and deploy `dist` to GitHub Pages
+
+## Deployment
+
+This repository is configured for GitHub Pages deployment.
+
+```bash
+pnpm deploy
+```
+
+This runs the build and publishes the `dist` folder.
+
+## Notes
+
+- The previous default Vite template README has been replaced with project-specific documentation.
+- If you add new sections/features (e.g., blog, CMS integration, or API-backed content), update this README to keep it aligned with the current project.
