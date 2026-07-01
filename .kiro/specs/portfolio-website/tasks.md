@@ -7,13 +7,13 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
 ## Tasks
 
 - [ ] 1. Project scaffolding and configuration
-  - [ ] 1.1 Initialise Vite project with React + TypeScript template using PNPM, install all production and dev dependencies
+  - [x] 1.1 Initialise Vite project with React + TypeScript template using PNPM, install all production and dev dependencies
     - Run `pnpm create vite . --template react-ts` in `d:\portfolio-allan-cymk\`
     - Install deps: `react-router-dom`, `framer-motion`, `rxjs`, `react-markdown`, `rehype-highlight`, `gray-matter`, `lucide-react`, `gh-pages`
     - Install dev deps: `@tailwindcss/vite`, `tailwindcss`, `vitest`, `@vitest/ui`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `fast-check`, `vitest-axe`, `jsdom`
     - _Requirements: 14.2_
 
-  - [ ] 1.2 Configure `vite.config.ts` with base path, Tailwind v4 plugin, and path aliases
+  - [x] 1.2 Configure `vite.config.ts` with base path, Tailwind v4 plugin, and path aliases
     - Set `base: '/portfolio-website/'`
     - Add `@tailwindcss/vite` to plugins array
     - Add `resolve.alias` for `@` → `src`
@@ -21,25 +21,25 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - _Requirements: 14.2, 14.3_
 
 
-  - [ ] 1.3 Set up Tailwind CSS v4 in `src/index.css` with design tokens and dark-mode variant
+  - [x] 1.3 Set up Tailwind CSS v4 in `src/index.css` with design tokens and dark-mode variant
     - Add `@import "tailwindcss"` at top of `index.css`
     - Define `@custom-variant dark ('[data-theme="dark"] &')` for data-attribute-driven dark mode
     - Define `@theme {}` block with CSS custom properties: colour palette, spacing scale, border-radius tokens
     - _Requirements: 9.1, 9.3_
 
-  - [ ] 1.4 Add FOUC-prevention inline script to `index.html` and wire up Suspense fallback
+  - [x] 1.4 Add FOUC-prevention inline script to `index.html` and wire up Suspense fallback
     - Insert `<script>` tag in `<head>` of `index.html` that reads `localStorage.getItem('theme')` and sets `document.documentElement.dataset.theme` before body renders, defaulting to `'dark'`
     - Add `<Suspense fallback={<div>Loading…</div>}>` wrapper in `main.tsx` around the app router
     - _Requirements: 9.3, 11.3_
 
-  - [ ] 1.5 Create `src/test/setup.ts` test bootstrap and `package.json` scripts
+  - [x] 1.5 Create `src/test/setup.ts` test bootstrap and `package.json` scripts
     - Import `@testing-library/jest-dom` and `vitest-axe/extend-expect` in `setup.ts`
     - Add scripts to `package.json`: `"dev"`, `"build"`, `"preview"`, `"test"`, `"test:ui"`, `"deploy"` (using `gh-pages -d dist`)
     - _Requirements: 14.2_
 
 
 - [ ] 2. Core services
-  - [ ] 2.1 Implement `Storage_Service` (`src/services/storage.service.ts`)
+  - [x] 2.1 Implement `Storage_Service` (`src/services/storage.service.ts`)
     - Export a singleton `StorageService` with `isAvailable()`, `get<T>()`, and `set<T>()` methods
     - On instantiation, perform a test write (`__storage_test__`) and read; if it throws, set internal `_available = false`
     - When unavailable, redirect all reads/writes to a `Map<string, unknown>` in-memory store
@@ -94,7 +94,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
 
 
 - [ ] 3. Data layer — static content and project pipeline
-  - [ ] 3.1 Create static data files `src/data/profile.ts` and `src/data/skills.ts`
+  - [x] 3.1 Create static data files `src/data/profile.ts` and `src/data/skills.ts`
     - `profile.ts`: export `ProfileData` constant with placeholder name, title, intro, githubUsername, mediumUsername, socialLinks array, optional resumeUrl
     - `skills.ts`: export `SkillCategory[]` with four categories (`Frontend`, `Backend`, `Languages`, `Tools`), max 12 skills each
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 1.3, 1.4_
