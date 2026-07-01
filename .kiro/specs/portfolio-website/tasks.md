@@ -6,7 +6,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
 
 ## Tasks
 
-- [ ] 1. Project scaffolding and configuration
+- [x] 1. Project scaffolding and configuration
   - [x] 1.1 Initialise Vite project with React + TypeScript template using PNPM, install all production and dev dependencies
     - Run `pnpm create vite . --template react-ts` in `d:\portfolio-allan-cymk\`
     - Install deps: `react-router-dom`, `framer-motion`, `rxjs`, `react-markdown`, `rehype-highlight`, `gray-matter`, `lucide-react`, `gh-pages`
@@ -38,7 +38,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - _Requirements: 14.2_
 
 
-- [ ] 2. Core services
+- [x] 2. Core services
   - [x] 2.1 Implement `Storage_Service` (`src/services/storage.service.ts`)
     - Export a singleton `StorageService` with `isAvailable()`, `get<T>()`, and `set<T>()` methods
     - On instantiation, perform a test write (`__storage_test__`) and read; if it throws, set internal `_available = false`
@@ -46,25 +46,25 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - `set()` returns `false` on any `localStorage` error without propagating; `get()` returns `null` on miss
     - _Requirements: 15.1, 15.3_
 
-  - [ ]* 2.2 Write property test for Storage_Service write-failure safety (Property 9)
+  - [x]* 2.2 Write property test for Storage_Service write-failure safety (Property 9)
     - **Property 9: Storage_Service write-failure safety**
     - **Validates: Requirements 9.7, 15.1, 15.3**
     - Mock `localStorage.setItem` to always throw; generate random key/value pairs via `fc.string()`
     - Assert `set()` returns `false`, no exception escapes, and `get()` returns in-memory value
 
-  - [ ] 2.3 Implement `Theme_Service` (`src/services/theme.service.ts`)
+  - [x] 2.3 Implement `Theme_Service` (`src/services/theme.service.ts`)
     - Export `getTheme()`: reads `localStorage` key `theme`; returns stored value if `'dark'`|`'light'`, else `'dark'`
     - Export `setTheme(theme)`: calls `StorageService.set('theme', theme)` and `applyTheme(theme)`
     - Export `applyTheme(theme)`: sets `document.documentElement.dataset.theme = theme`
     - _Requirements: 9.2, 9.3, 9.4, 9.6, 9.7_
 
-  - [ ]* 2.4 Write property test for Theme_Service round-trip (Property 5)
+  - [x]* 2.4 Write property test for Theme_Service round-trip (Property 5)
     - **Property 5: Theme round-trip**
     - **Validates: Requirements 9.2, 9.6**
     - For each value in `["dark", "light"]`, call `setTheme(value)`, assert `getTheme()` returns `value` and `document.documentElement.dataset.theme === value`
 
 
-  - [ ] 2.5 Implement `RSS_Service` (`src/services/rss.service.ts`)
+  - [x] 2.5 Implement `RSS_Service` (`src/services/rss.service.ts`)
     - Export `fetchArticles(username: string): Observable<ArticleData[]>`
     - Construct URL: `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@{username}`
     - Use `from(fetch(url))` piped through `switchMap(r => from(r.json()))`, `timeout(10000)`, `map(parseRssJson)`, `catchError(err => throwError(() => err))`
@@ -84,7 +84,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - Assert every output item has non-empty `title`, non-empty `url`, parseable `pubDate`
     - Assert `ArticlesSection` renders exactly `Math.min(N, 10)` ArticleCard components
 
-  - [ ] 2.8 Implement `GitHub_Service` (`src/services/github.service.ts`)
+  - [x] 2.8 Implement `GitHub_Service` (`src/services/github.service.ts`)
     - Export `fetchGitHubData(username: string): Promise<GitHubData>`
     - `GET https://api.github.com/users/:username/repos?sort=pushed&per_page=100`
     - Map response to `RepoData[]`; filter `featuredRepos` by `topics.includes('featured')`, slice to 6; slice `recentRepos` to 6 most recent by `pushed_at`
@@ -93,62 +93,62 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - _Requirements: 7.1, 7.2, 7.3_
 
 
-- [ ] 3. Data layer — static content and project pipeline
+- [x] 3. Data layer — static content and project pipeline
   - [x] 3.1 Create static data files `src/data/profile.ts` and `src/data/skills.ts`
     - `profile.ts`: export `ProfileData` constant with placeholder name, title, intro, githubUsername, mediumUsername, socialLinks array, optional resumeUrl
     - `skills.ts`: export `SkillCategory[]` with four categories (`Frontend`, `Backend`, `Languages`, `Tools`), max 12 skills each
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 1.3, 1.4_
 
-  - [ ] 3.2 Implement `validateProjects` and `sortProjects` pure functions (`src/lib/projects.ts`)
+  - [x] 3.2 Implement `validateProjects` and `sortProjects` pure functions (`src/lib/projects.ts`)
     - `validateProjects(raw)`: checks each entry for required fields (`title`, `slug`, `description`, `technologies`, `github`); emits `console.warn('[portfolio] Missing fields in {filename}: {fields}')` for invalid; detects duplicate slugs and emits `console.warn('[portfolio] Duplicate slug "{slug}" in {files}')`, excluding all affected
     - `sortProjects(projects)`: places `featured === true` items first, then remaining sorted by `title` ascending case-insensitively
     - _Requirements: 13.2, 13.4, 13.5, 13.6_
 
-  - [ ]* 3.3 Write property test for project validation excludes invalid files (Property 1)
+  - [x]* 3.3 Write property test for project validation excludes invalid files (Property 1)
     - **Property 1: Project validation excludes invalid files**
     - **Validates: Requirements 13.2, 13.4**
     - Generate random arrays of project-shaped objects where a random subset omits required fields via `fc.array(fc.record({...}))` with optional field omission
     - Assert output contains only fully-valid objects; assert `console.warn` called for each excluded file
 
-  - [ ]* 3.4 Write property test for duplicate slug exclusion (Property 2)
+  - [x]* 3.4 Write property test for duplicate slug exclusion (Property 2)
     - **Property 2: Duplicate slug exclusion**
     - **Validates: Requirements 13.5**
     - Generate project arrays where a random subset shares a duplicated `slug` via `fc.array()` with injected duplicates
     - Assert all objects sharing a duplicated slug are absent from output; assert `console.warn` called per conflict
 
-  - [ ]* 3.5 Write property test for project sort order invariant (Property 3)
+  - [x]* 3.5 Write property test for project sort order invariant (Property 3)
     - **Property 3: Project sort order invariant**
     - **Validates: Requirements 13.6, 3.6**
     - Generate random valid project arrays with random `featured` booleans and `title` strings via `fc.array(fc.record({featured: fc.boolean(), title: fc.string()}))`
     - Assert all `featured === true` items precede all others; assert within-group case-insensitive alphabetical order
 
-  - [ ] 3.6 Implement `useProjects` and `useProject` hooks (`src/hooks/useProjects.ts`)
+  - [x] 3.6 Implement `useProjects` and `useProject` hooks (`src/hooks/useProjects.ts`)
     - `useProjects()`: calls `import.meta.glob('../content/projects/*.md', { as: 'raw' })`, iterates each raw string through `gray-matter`, builds raw project objects, passes through `validateProjects` + `sortProjects`, returns `ProjectData[]`
     - `useProject(slug)`: calls `useProjects()` and returns the single entry whose `slug` matches, or `undefined`
     - _Requirements: 3.1, 3.2, 3.4, 3.5, 13.1_
 
 
-- [ ] 4. Routing setup
-  - [ ] 4.1 Set up React Router v6 `HashRouter` with lazy `ProjectPage`, `NotFoundPage`, and `ErrorBoundary` (`src/main.tsx`, `src/router.tsx`)
+- [x] 4. Routing setup
+  - [x] 4.1 Set up React Router v6 `HashRouter` with lazy `ProjectPage`, `NotFoundPage`, and `ErrorBoundary` (`src/main.tsx`, `src/router.tsx`)
     - Use `<HashRouter>` wrapping `<Routes>`
     - Define routes: `path="/"` → `<HomePage />`, `path="/projects/:slug"` → lazy-loaded `<ProjectPage />` wrapped in `<ErrorBoundary>` + `<Suspense>`, `path="*"` → `<NotFoundPage />`
     - `ErrorBoundary` catches runtime render errors and shows inline error without redirecting
     - _Requirements: 4.1, 4.2, 11.3, 14.1_
 
-  - [ ] 4.2 Implement `NotFoundPage` (`src/pages/NotFoundPage.tsx`)
+  - [x] 4.2 Implement `NotFoundPage` (`src/pages/NotFoundPage.tsx`)
     - Render a styled 404 message with a `<Link to="/">` back to homepage
     - _Requirements: 4.2_
 
-- [ ] 5. Checkpoint — ensure core services, data layer, and router compile with no TypeScript errors
+- [x] 5. Checkpoint — ensure core services, data layer, and router compile with no TypeScript errors
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Layout and navigation components
-  - [ ] 6.1 Implement `SkipNavLink` and `Banner` components (`src/components/SkipNavLink.tsx`, `src/components/Banner.tsx`)
+- [x] 6. Layout and navigation components
+  - [x] 6.1 Implement `SkipNavLink` and `Banner` components (`src/components/SkipNavLink.tsx`, `src/components/Banner.tsx`)
     - `SkipNavLink`: `<a href="#main-content">` as first focusable element; `sr-only` with `focus:not-sr-only` Tailwind classes
     - `Banner`: renders `<img>` when `src` provided; `onError` and no-src case both render a CSS-gradient `<div>` placeholder of the same dimensions
     - _Requirements: 1.2, 12.6_
 
-  - [ ] 6.2 Implement `ChannelHeader` component (`src/components/ChannelHeader.tsx`)
+  - [x] 6.2 Implement `ChannelHeader` component (`src/components/ChannelHeader.tsx`)
     - Display name, title, intro (≤ 300 chars), circular 200×200 px profile photo when `photoSrc` present
     - Social links with Lucide React icons; each link `target="_blank" rel="noopener noreferrer"` with `aria-label`
     - Resume button: enabled (opens `resumeUrl` in new tab) when `resumeUrl` is non-empty string; disabled with `aria-disabled="true"` when absent or empty string
@@ -161,7 +161,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - Assert `aria-disabled="true"` iff `resumeUrl` is empty or absent; assert enabled state for valid URLs
 
 
-  - [ ] 6.4 Implement `NavTabs` component (`src/components/NavTabs.tsx`)
+  - [x] 6.4 Implement `NavTabs` component (`src/components/NavTabs.tsx`)
     - Container `role="tablist"`; each button `role="tab"`, `aria-selected`, `aria-controls` pointing to matching panel id
     - Active tab: visual indicator (underline/highlight); inactive panels receive `hidden` attribute
     - Keyboard: `ArrowRight`/`ArrowLeft` wraps focus, `Enter`/`Space` activates focused tab
@@ -182,20 +182,20 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - Simulate `ArrowRight`/`ArrowLeft`; assert new focus = `(old ± 1) mod N`
     - Simulate `Enter`/`Space`; assert focused tab becomes active selection
 
-  - [ ] 6.7 Implement `ThemeToggle` component (`src/components/ThemeToggle.tsx`)
+  - [x] 6.7 Implement `ThemeToggle` component (`src/components/ThemeToggle.tsx`)
     - `useTheme()` hook: reads `Theme_Service.getTheme()` on init; `toggleTheme` calls `Theme_Service.setTheme()`
     - Button with `aria-label` stating current theme and action (e.g., "Switch to light theme")
     - Lucide `Sun`/`Moon` icon swaps on toggle
     - _Requirements: 9.5, 9.6_
 
 
-- [ ] 7. Section components
-  - [ ] 7.1 Implement `ProjectCard` and `ProjectsSection` components (`src/components/ProjectCard.tsx`, `src/components/ProjectsSection.tsx`)
+- [x] 7. Section components
+  - [x] 7.1 Implement `ProjectCard` and `ProjectsSection` components (`src/components/ProjectCard.tsx`, `src/components/ProjectsSection.tsx`)
     - `ProjectCard`: thumbnail `<img>` with `loading="lazy"`; `onError` swaps to `<div>` placeholder showing project title; tech stack tags; repo link; optional demo link; Framer Motion hover `scale ≤ 1.03` + shadow; click/Enter navigates to `#/projects/:slug`
     - `ProjectsSection`: responsive CSS grid (1 col / 2 col / 3 col at `sm`/`lg` breakpoints); empty-state message when `projects` array is empty
     - _Requirements: 3.1, 3.2, 3.3, 3.7, 3.8_
 
-  - [ ] 7.2 Implement `ArticleCard`, `SkeletonCard`, and `ArticlesSection` (`src/components/ArticleCard.tsx`, `src/components/SkeletonCard.tsx`, `src/components/ArticlesSection.tsx`)
+  - [x] 7.2 Implement `ArticleCard`, `SkeletonCard`, and `ArticlesSection` (`src/components/ArticleCard.tsx`, `src/components/SkeletonCard.tsx`, `src/components/ArticlesSection.tsx`)
     - `ArticleCard`: cover image with `onError` placeholder; date formatted `"Month DD, YYYY"` using `Intl.DateTimeFormat`; reading time when present
     - `SkeletonCard`: animated pulse placeholder for `variant` `'article'` | `'repo'` | `'graph'`
     - `ArticlesSection`: shows 3 `SkeletonCard` while `loading`; error message string when `error` non-null; up to 10 `ArticleCard` on success
@@ -207,17 +207,17 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - Generate random valid ISO 8601 date strings via `fc.date({ min: new Date('2000-01-01'), max: new Date('2099-12-31') })`
     - Assert rendered date matches `/^[A-Z][a-z]+ \d{2}, \d{4}$/`
 
-  - [ ] 7.4 Implement `SkillsSection` component (`src/components/SkillsSection.tsx`)
+  - [x] 7.4 Implement `SkillsSection` component (`src/components/SkillsSection.tsx`)
     - Accept `categories: SkillCategory[]`; render each category name as a heading and each skill as a compact tag/badge
     - _Requirements: 6.1, 6.2_
 
-  - [ ] 7.5 Implement `AboutSection` component (`src/components/AboutSection.tsx`)
+  - [x] 7.5 Implement `AboutSection` component (`src/components/AboutSection.tsx`)
     - Render extended bio/about text sourced from `profile.ts`
     - Use semantic `<section>` with appropriate heading
     - _Requirements: 12.4_
 
 
-  - [ ] 7.6 Implement `GitHubSection` component and `useGitHub` hook (`src/components/GitHubSection.tsx`, `src/hooks/useGitHub.ts`)
+  - [x] 7.6 Implement `GitHubSection` component and `useGitHub` hook (`src/components/GitHubSection.tsx`, `src/hooks/useGitHub.ts`)
     - `useGitHub(username)`: calls `GitHub_Service.fetchGitHubData(username)` in `useEffect`; returns `{ data, loading, error }`
     - `GitHubSection`: `<img src={contributionGraphUrl} alt="GitHub contribution graph" loading="lazy">` for graph; up to 6 featured repos; up to 6 recent repos with `pushed_at` date formatted `"Month DD, YYYY"`; skeleton state during load; inline error + profile link on failure
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
@@ -228,7 +228,7 @@ Implement a YouTube-channel-inspired developer portfolio SPA using React 18, Vit
     - Generate random `RepoData[]` of length 0–50 with random `topics` and `pushed_at` dates via `fc.array(fc.record({...}))`
     - Assert `GitHubSection` renders ≤ 6 featured repos and ≤ 6 recent repos, recent sorted by `pushed_at` desc
 
-  - [ ] 7.8 Implement `ContactSection` component (`src/components/ContactSection.tsx`)
+  - [x] 7.8 Implement `ContactSection` component (`src/components/ContactSection.tsx`)
     - Render icon-based links for email, LinkedIn, Medium, X/Twitter, GitHub using Lucide React icons
     - Each `<a>`: `target="_blank"`, `rel="noopener noreferrer"`, `aria-label` in format `"[Platform] profile"` or `"Email [address]"`
     - Min touch target 44×44 px via Tailwind utility classes (`min-w-[44px] min-h-[44px]` or `p-` padding)
