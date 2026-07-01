@@ -11,8 +11,9 @@ technologies:
   - RxJS
   - React Router
 github: https://github.com/abok-cymk/portfolio-allan-cymk
-demo: https://your-username.github.io/portfolio-website/
+demo: https://abok-cymk.github.io/portfolio-allan-cymk/
 featured: true
+thumbnail: portfolio-website.png
 ---
 
 ## Overview
