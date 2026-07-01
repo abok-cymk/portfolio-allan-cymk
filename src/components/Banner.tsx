@@ -35,7 +35,7 @@ export default function Banner({ src, alt = '' }: BannerProps) {
     <img
       src={src}
       alt={alt}
-      style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }}
+      style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block', objectPosition: 'top' }}
       onError={() => setImgError(true)}
     />
   );

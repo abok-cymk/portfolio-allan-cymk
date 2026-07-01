@@ -39,7 +39,7 @@ export default function ChannelHeader({
 
   return (
     <header>
-      <Banner />
+      <Banner src='banner_.jpeg' alt="Profile banner" />
       <div
         className="flex flex-col sm:flex-row items-start gap-6 px-6 py-6"
         style={{ borderBottom: '1px solid var(--color-border)' }}
